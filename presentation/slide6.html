@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Questão 2: Arquitetura Cloud AWS — Componentes</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .slide-container {
+            width: 960px;
+            min-height: 720px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-bar {
+            height: 12px;
+            background-color: #EC7000;
+            width: 100%;
+        }
+
+        .footer-bar {
+            height: 8px;
+            background-color: #EC7000;
+            width: 100%;
+        }
+
+        .side-accent {
+            width: 20px;
+            background-color: #EC7000;
+            min-height: 100%;
+        }
+
+        .title {
+            font-size: 38px;
+            font-weight: 700;
+            color: #1C1C1C;
+            line-height: 1.2;
+            margin: 36px auto 0 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        .subtitle {
+            font-size: 30px;
+            font-weight: 400;
+            color: #EC7000;
+            margin: 6px auto 36px 0;
+            text-align: left;
+            width: 100%;
+            line-height: 1.2;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            padding: 18px 32px 0 32px;
+            box-sizing: border-box;
+            align-items: start;
+        }
+
+        .col {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .content-box {
+            background-color: #F8F8F8;
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            min-height: 150px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .accent-color {
+            color: #EC7000;
+        }
+
+        .service-card {
+            background-color: #fff;
+            border-left: 4px solid #EC7000;
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+        }
+
+        .service-icon {
+            color: #EC7000;
+            font-size: 24px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .service-content h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .service-content p {
+            margin: 2px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .benefits {
+            display: flex;
+            gap: 24px;
+            margin: 32px 0 0 32px;
+            justify-content: flex-start;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .benefit-icon {
+            background-color: #EC7000;
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .navigation {
+            margin: 32px 32px 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            width: 896px;
+        }
+
+        .navigation a {
+            color: #EC7000;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 16px;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.3s ease;
+        }
+
+        .navigation a:hover {
+            border-color: #EC7000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="header-bar"></div>
+        <div>
+            <h1 class="title">Questão 2: Arquitetura Cloud AWS</h1>
+            <div class="subtitle">Componentes da Solução</div>
+        </div>
+        <div class="content-area">
+            <div class="col">
+                <div class="content-box">
+                    <h2 class="accent-color">Frontend</h2>
+                    <div class="service-card">
+                        <i class="fab fa-aws service-icon"></i>
+                        <div class="service-content">
+                            <h3>S3 + CloudFront</h3>
+                            <p>Hospedagem dos arquivos estáticos React</p>
+                            <p class="text-xs text-gray-600 mt-1">Distribuição global via CDN para baixa latência e alta
+                                disponibilidade</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h2 class="accent-color">Banco de Dados</h2>
+                    <div class="service-card">
+                        <i class="fas fa-database service-icon"></i>
+                        <div class="service-content">
+                            <h3>AWS RDS</h3>
+                            <p>Banco relacional gerenciado (Postgres/MySQL)</p>
+                            <p class="text-xs text-gray-600 mt-1">Backups automáticos e escalabilidade
+                                vertical/horizontal</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-bolt service-icon"></i>
+                        <div class="service-content">
+                            <h3>ElastiCache (Redis)</h3>
+                            <p>Cache para acelerar consultas frequentes</p>
+                            <p class="text-xs text-gray-600 mt-1">Reduz carga no banco e melhora tempo de resposta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="content-box">
+                    <h2 class="accent-color">Backend</h2>
+                    <div class="service-card">
+                        <i class="fab fa-docker service-icon"></i>
+                        <div class="service-content">
+                            <h3>Docker + ECS Fargate</h3>
+                            <p>Containers Node.js orquestrados e autoescaláveis</p>
+                            <p class="text-xs text-gray-600 mt-1">Execução serverless com capacidade sob demanda</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-balance-scale service-icon"></i>
+                        <div class="service-content">
+                            <h3>Application Load Balancer</h3>
+                            <p>Distribuição de tráfego entre containers</p>
+                            <p class="text-xs text-gray-600 mt-1">Health checks e roteamento inteligente</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h2 class="accent-color">Segurança e DevOps</h2>
+                    <div class="service-card">
+                        <i class="fas fa-shield-alt service-icon"></i>
+                        <div class="service-content">
+                            <h3>IAM + Security Groups + WAF</h3>
+                            <p>Controle de acesso e proteção contra ataques</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-chart-line service-icon"></i>
+                        <div class="service-content">
+                            <h3>CloudWatch + CodePipeline</h3>
+                            <p>Monitoramento e automação de deploy CI/CD</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="benefits">
+            <div class="benefit-item">
+                <span class="benefit-icon"><i class="fas fa-check"></i></span>
+                Escalabilidade
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon"><i class="fas fa-check"></i></span>
+                Alta Disponibilidade
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon"><i class="fas fa-check"></i></span>
+                Segurança
+            </div>
+        </div>
+        <div class="navigation">
+            <a href="slide5.html">&#8592; Voltar</a>
+            <a href="slide7.html">Próximo &rarr;</a>
+        </div>
+        <div class="mt-auto flex items-center justify-between px-16 py-5">
+            <div class="text-sm text-gray-600">Case Técnico - Confidencial</div>
+            <div>
+                <i class="fas fa-cloud mr-2 accent-color"></i>
+                <span class="text-sm">Arquitetura Cloud AWS</span>
+            </div>
+        </div>
+        <div class="footer-bar w-full"></div>
+    </div>
+</body>
+
+</html>

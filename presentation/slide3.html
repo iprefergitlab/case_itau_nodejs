@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Questão 1: Refatoração de Código</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .slide-container {
+            width: 960px;
+            min-height: 720px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-bar {
+            height: 12px;
+            background-color: #EC7000;
+            width: 100%;
+        }
+
+        .footer-bar {
+            height: 8px;
+            background-color: #EC7000;
+            width: 100%;
+        }
+
+        .side-accent {
+            width: 20px;
+            background-color: #EC7000;
+            min-height: 100%;
+        }
+
+        .title {
+            font-size: 38px;
+            font-weight: 700;
+            color: #1C1C1C;
+            line-height: 1.2;
+            margin: 36px 0 0 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        .subtitle {
+            font-size: 30px;
+            font-weight: 400;
+            color: #EC7000;
+            margin: 8px 0 40px 0;
+            text-align: left;
+            width: 100%;
+            line-height: 1.2;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            padding: 48px 32px 0 32px;
+            justify-content: center;
+            gap: 32px;
+            align-items: flex-start;
+            box-sizing: border-box;
+        }
+
+        .content-box {
+            background-color: #F8F8F8;
+            border-radius: 14px;
+            padding: 28px 28px 18px 28px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            min-height: unset;
+            max-width: 430px;
+            width: 100%;
+        }
+
+        .content-box h2 {
+            font-size: 22px;
+            margin: 0 0 20px 0;
+            font-weight: 700;
+            color: #EC7000;
+        }
+
+        .code-block {
+            background-color: #23232B;
+            color: #e6e6e6;
+            border-radius: 10px;
+            padding: 18px 20px;
+            font-family: 'Roboto Mono', 'Fira Mono', monospace;
+            font-size: 15px;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 0 0 18px 0;
+            white-space: pre;
+        }
+
+        .problem-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .problem-icon {
+            color: #EC7000;
+            margin-right: 12px;
+            margin-top: 2px;
+            font-size: 21px;
+            flex-shrink: 0;
+        }
+
+        .problem-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .navigation {
+            margin: 32px 32px 40px 32px;
+            display: flex;
+            justify-content: space-between;
+            width: calc(100% - 64px);
+        }
+
+        .navigation a {
+            color: #EC7000;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 16px;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.3s ease;
+        }
+
+        .navigation a:hover {
+            border-color: #EC7000;
+        }
+
+        .footer-info {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 64px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer-info i {
+            margin-right: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .content-area {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 30px 8px 0 8px;
+                gap: 20px;
+            }
+
+            .content-box {
+                max-width: 100% !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="header-bar"></div>
+
+        <h1 class="title">Questão 1: Refatoração de Código</h1>
+        <div class="subtitle">Estrutura Antiga e Problemas Identificados</div>
+
+        <div class="content-area">
+            <div class="content-box">
+                <h2>Estrutura Antiga</h2>
+                <pre class="code-block">
+case_itau_nodejs/
+│
+├── database.js
+│
+└── server.js
+                </pre>
+                <div class="problem-item">
+                    <i class="fas fa-exclamation-triangle problem-icon"></i>
+                    Estrutura simplista com apenas dois arquivos
+                </div>
+                <div class="problem-item">
+                    <i class="fas fa-link problem-icon"></i>
+                    Alto acoplamento entre lógica de negócio e infraestrutura
+                </div>
+            </div>
+            <div class="content-box">
+                <h2>Problema de Lógica — Saldo Negativo</h2>
+                <pre class="code-block">
+app.post('/clientes/:id/depositar', (req,res) => {
+    const { id } = req.params;
+    const { valor } = req.body;
+    try {
+        db.run(`UPDATE clientes SET saldo = saldo + ? WHERE id = ?`, [valor, id]);
+        return res.status(200).json();
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).json(err);
+    }
+})
+
+app.post('/clientes/:id/sacar', (req,res) => {
+    const { id } = req.params;
+    const { valor } = req.body;
+    try {
+        db.run(`UPDATE clientes SET saldo = saldo - ? WHERE id = ?`, [valor, id]);
+        return res.status(200).json();
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).json(err);
+    }
+})
+                </pre>
+                <div class="problem-item">
+                    <i class="fas fa-times-circle problem-icon"></i>
+                    Ausência de validação: permitia saques maiores que o saldo
+                </div>
+                <div class="problem-item">
+                    <i class="fas fa-times-circle problem-icon"></i>
+                    Sem verificação de valores negativos ou zero
+                </div>
+                <div class="problem-item">
+                    <i class="fas fa-times-circle problem-icon"></i>
+                    Operação não atômica e vulnerável a concorrência
+                </div>
+                <div class="problem-item">
+                    <i class="fas fa-shield-alt problem-icon"></i>
+                    Falta de segurança na manipulação de dados financeiros
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="slide2.html">← Voltar</a>
+            <a href="slide4.html">Próximo &rarr;</a>
+        </div>
+
+        <div class="footer-info">
+            <div>Case Técnico - Confidencial</div>
+            <div><i class="fas fa-lock mr-2 accent-color"></i> Uso Interno</div>
+        </div>
+
+        <div class="footer-bar"></div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Agenda - Case Itaú</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        .slide-container {
+            width: 960px;
+            min-height: 720px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .accent-color {
+            color: #EC7000;
+        }
+
+        .header-bar {
+            height: 12px;
+            background-color: #EC7000;
+            width: 100%;
+        }
+
+        .footer-bar {
+            height: 8px;
+            background-color: #EC7000;
+            width: 100%;
+        }
+
+        .side-accent {
+            width: 20px;
+            background-color: #EC7000;
+            min-height: 100%;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            padding: 48px 32px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content-inner {
+            max-width: 720px;
+            flex: 1;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1C1C1C;
+            line-height: 1.3;
+            margin-bottom: 32px;
+        }
+
+        .agenda-item {
+            padding: 20px 28px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #F8F8F8;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .agenda-item:hover {
+            box-shadow: 0 4px 12px rgba(236, 112, 0, 0.15);
+            transform: translateX(8px);
+        }
+
+        .agenda-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            background-color: #EC7000;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+
+        .agenda-icon {
+            margin-left: auto;
+            color: #EC7000;
+            font-size: 22px;
+        }
+
+        .navigation {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation a {
+            color: #EC7000;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 16px;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.3s ease;
+        }
+
+        .navigation a:hover {
+            border-color: #EC7000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="header-bar"></div>
+        <div class="content-area">
+            <div class="side-accent"></div>
+            <div class="content-inner">
+                <h1 class="title">Agenda</h1>
+
+                <div class="agenda-items">
+                    <div class="agenda-item">
+                        <div class="agenda-number">1</div>Introdução
+                        <i class="fas fa-info-circle agenda-icon"></i>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-number">2</div>Questão 1: Refatoração de Código
+                        <i class="fas fa-code agenda-icon"></i>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-number">3</div>Questão 2: Arquitetura Cloud AWS
+                        <i class="fas fa-cloud agenda-icon"></i>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-number">4</div>Conclusão
+                        <i class="fas fa-check-circle agenda-icon"></i>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <a href="slide1.html">&#8592; Voltar</a>
+                    <a href="slide3.html">Próximo &rarr;</a>
+                </div>
+            </div>
+            <div class="side-accent"></div>
+        </div>
+
+        <div class="mt-auto flex items-center justify-between px-16 py-6">
+            <div class="text-sm text-gray-600">Case Técnico - Confidencial</div>
+            <div>
+                <i class="fas fa-lock mr-2 accent-color"></i>
+                <span class="text-sm">Uso Interno</span>
+            </div>
+        </div>
+        <div class="footer-bar"></div>
+    </div>
+</body>
+
+</html>
