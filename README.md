@@ -19,6 +19,8 @@ Use the following steps to install dependencies for both the frontend and backen
 
 Separate installation is necessary because each app has its own dependencies and `node_modules` folder.
 
+***
+
 ### Environment Configuration
 
 Before running the backend, create a `.env` file at the root of the `backend` folder.
@@ -30,6 +32,8 @@ PORT=8080
 ```
 
 You may change the port value as needed for your setup.
+
+***
 
 ### Running the Applications
 
