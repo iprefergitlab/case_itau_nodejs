@@ -54,3 +54,8 @@ To launch both the frontend and backend servers:
   ```
 
 Both servers will start on their configured ports, and you can interact with the full stack as intended.
+
+***
+### Reference
+
+Original project: https://github.com/andregattini/case_itau_nodejs
