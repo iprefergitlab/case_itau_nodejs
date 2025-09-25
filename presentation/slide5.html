@@ -18,7 +18,7 @@
 
         .slide-container {
             width: 960px;
-            min-height: 720px;
+            min-height: 700px;
             margin: 0 auto;
             overflow: hidden;
             position: relative;
@@ -74,6 +74,39 @@
             margin-bottom: 20px;
             font-weight: 700;
             font-size: 20px;
+        }
+
+        .file-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #EC7000;
+            margin-bottom: 0;
+            display: inline;
+        }
+
+        .file-path {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #222;
+            margin-left: 6px;
+            display: inline;
+            font-weight: bold;
+        }
+
+        .explanation-row {
+            display: inline-flex;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #444;
+            margin-left: 10px;
+            gap: 8px;
+            vertical-align: middle;
+        }
+
+        .arrow {
+            color: #EC7000;
+            font-size: 1.25em;
         }
 
         .code-block {
@@ -140,8 +173,14 @@
             <div class="side-accent"></div>
 
             <div class="content-box">
-                <h2 class="accent-color">Código Refatorado (<span
-                        style="color:#000;">src/models/customer.model.js</span>)</h2>
+                <div>
+                    <span class="file-title">Código Refatorado</span>
+                    <span class="file-path">(backend/src/models/customer.model.js)</span>
+                    <span class="explanation-row">
+                        <span class="arrow">&#8595;</span>
+                        <span>Impede saque maior que o saldo disponível</span>
+                    </span>
+                </div>
                 <pre class="code-block">
 static async withdraw(id, value) {
   return new Promise((resolve, reject) => {
@@ -166,7 +205,33 @@ static async withdraw(id, value) {
     );
   });
 }
-        </pre>
+                </pre>
+
+                <div style="margin-top: 24px;">
+                    <span class="file-title">Código Refatorado</span>
+                    <span class="file-path">(frontend/src/components/CustomerDetails.jsx)</span>
+                    <span class="explanation-row">
+                        <span class="arrow">&#8595;</span>
+                        <span>Previne depósitos com valores negativos ou inválidos</span>
+                    </span>
+                </div>
+                <pre class="code-block">
+const handleOperation = () => {
+    if (!amount || isNaN(amount) || Number(amount) &lt;= 0) {
+        alert('Please enter a valid positive amount.');
+        return;
+    }
+    const action = mode === 'deposit' ? deposit : withdraw;
+    action(id, Number(amount))
+        .then(() => {
+            alert(`${mode === 'deposit' ? 'Deposit' : 'Withdraw'} successful.`);
+            getCustomer(id).then(res =&gt; setCustomer(res.data));
+            setAmount('');
+            setMode(null);
+        })
+        .catch(err =&gt; alert(err.response?.data?.error || err.message));
+};
+                </pre>
             </div>
 
             <div class="content-box">
@@ -186,11 +251,13 @@ static async withdraw(id, value) {
                 <h2 class="accent-color" style="margin-top: 32px;">Melhorias de Segurança</h2>
                 <div class="improvement-item">
                     <i class="fas fa-shield-alt improvement-icon"></i>
-                    <p><strong>Saldo não negativo:</strong> Validação do saldo antes do saque</p>
+                    <p><strong>Restrição de saque por saldo insuficiente:</strong> Bloqueia tentativa de saque maior que
+                        o saldo
+                    </p>
                 </div>
                 <div class="improvement-item">
                     <i class="fas fa-shield-alt improvement-icon"></i>
-                    <p><strong>Valores positivos:</strong> Validação no service para impedir saques/depósitos negativos
+                    <p><strong>Valores positivos:</strong> Validação para impedir saques/depósitos negativos
                     </p>
                 </div>
                 <div class="improvement-item">
