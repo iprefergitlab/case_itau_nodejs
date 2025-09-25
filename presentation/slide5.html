@@ -183,28 +183,23 @@
                 </div>
                 <pre class="code-block">
 static async withdraw(id, value) {
-  return new Promise((resolve, reject) => {
-    // Verifica saldo atual
-    db.get('SELECT balance FROM customers WHERE id = ?', [id],
-      (err, row) => {
-        if (err) return reject(err);
-        // Rejeita se não há saldo suficiente
-        if (!row || row.balance &lt; value) {
-          return reject(new Error('Insufficient funds.'));
-        }
-        // Atualiza saldo de forma segura
-        db.run(
-          'UPDATE customers SET balance = balance - ? WHERE id = ?',
-          [value, id],
-          function (err) {
-            if (err) return reject(err);
-            resolve(this.changes);
-          }
-        );
-      }
-    );
-  });
-}
+        return new Promise((resolve, reject) => {
+            db.get('SELECT balance FROM customers WHERE id = ?', [id], (err, row) => {
+                if (err) return reject(err);
+                if (!row || row.balance < value) {
+                    return reject(new Error('Insufficient funds.'));
+                }
+                db.run(
+                    'UPDATE customers SET balance = balance - ? WHERE id = ?',
+                    [value, id],
+                    function (err) {
+                        if (err) return reject(err);
+                        resolve(this.changes);
+                    }
+                );
+            });
+        });
+    }
                 </pre>
 
                 <div style="margin-top: 24px;">
@@ -217,20 +212,20 @@ static async withdraw(id, value) {
                 </div>
                 <pre class="code-block">
 const handleOperation = () => {
-    if (!amount || isNaN(amount) || Number(amount) &lt;= 0) {
-        alert('Please enter a valid positive amount.');
-        return;
-    }
-    const action = mode === 'deposit' ? deposit : withdraw;
-    action(id, Number(amount))
-        .then(() => {
-            alert(`${mode === 'deposit' ? 'Deposit' : 'Withdraw'} successful.`);
-            getCustomer(id).then(res =&gt; setCustomer(res.data));
-            setAmount('');
-            setMode(null);
-        })
-        .catch(err =&gt; alert(err.response?.data?.error || err.message));
-};
+        if (!amount || isNaN(amount) || Number(amount) <= 0) {
+            alert('Please enter a valid positive amount.');
+            return;
+        }
+        const action = mode === 'deposit' ? deposit : withdraw;
+        action(id, Number(amount))
+            .then(() => {
+                alert(`${mode === 'deposit' ? 'Deposit' : 'Withdraw'} successful.`);
+                getCustomer(id).then(res => setCustomer(res.data));
+                setAmount('');
+                setMode(null);
+            })
+            .catch(err => alert(err.response?.data?.error || err.message));
+    };
                 </pre>
             </div>
 
