@@ -60,6 +60,9 @@ class CustomerModel {
 
     static async deposit(id, value) {
         return new Promise((resolve, reject) => {
+            if (value <= 0) {
+                return reject(new Error('Please enter a valid positive amount.'));
+            }
             db.run(
                 'UPDATE customers SET balance = balance + ? WHERE id = ?',
                 [value, id],

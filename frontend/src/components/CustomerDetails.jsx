@@ -22,6 +22,10 @@ export default function CustomerDetails() {
             alert('Please enter a valid positive amount.');
             return;
         }
+        if (mode === 'withdraw' && Number(amount) > customer.balance) {
+            alert('Insufficient funds.');
+            return;
+        }
         const action = mode === 'deposit' ? deposit : withdraw;
         action(id, Number(amount))
             .then(() => {

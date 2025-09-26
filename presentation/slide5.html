@@ -204,28 +204,28 @@ static async withdraw(id, value) {
 
                 <div style="margin-top: 24px;">
                     <span class="file-title">Código Refatorado</span>
-                    <span class="file-path">(frontend/src/components/CustomerDetails.jsx)</span>
+                    <span class="file-path">(backend/src/models/customer.model.js)</span>
                     <span class="explanation-row">
                         <span class="arrow">&#8595;</span>
                         <span>Previne depósitos com valores negativos ou inválidos</span>
                     </span>
                 </div>
                 <pre class="code-block">
-const handleOperation = () => {
-        if (!amount || isNaN(amount) || Number(amount) <= 0) {
-            alert('Please enter a valid positive amount.');
-            return;
-        }
-        const action = mode === 'deposit' ? deposit : withdraw;
-        action(id, Number(amount))
-            .then(() => {
-                alert(`${mode === 'deposit' ? 'Deposit' : 'Withdraw'} successful.`);
-                getCustomer(id).then(res => setCustomer(res.data));
-                setAmount('');
-                setMode(null);
-            })
-            .catch(err => alert(err.response?.data?.error || err.message));
-    };
+static async deposit(id, value) {
+        return new Promise((resolve, reject) => {
+            if (value <= 0) {
+                return reject(new Error('Please enter a valid positive amount.'));
+            }
+            db.run(
+                'UPDATE customers SET balance = balance + ? WHERE id = ?',
+                [value, id],
+                function (err) {
+                    if (err) return reject(err);
+                    resolve(this.changes);
+                }
+            );
+        });
+    }
                 </pre>
             </div>
 
